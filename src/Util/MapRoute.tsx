@@ -32,7 +32,7 @@ export class MapRoute {
       source: 'running-routes',
       paint: {
         'line-color': 'white',
-        'line-width': 1,
+        'line-width': 3,
       },
     })
   }
