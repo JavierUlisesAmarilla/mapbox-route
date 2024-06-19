@@ -21,10 +21,7 @@ export class MapRoute {
     this.curGeojson.features[0].geometry.coordinates = []
     this.curIndex = 0
 
-    this.map.addSource('running-routes', {
-      type: 'geojson',
-      data: this.curGeojson,
-    })
+    this.map.addSource('running-routes', {type: 'geojson'})
 
     this.map.addLayer({
       id: 'running-routes-line',
