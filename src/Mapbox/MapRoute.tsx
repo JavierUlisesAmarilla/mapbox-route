@@ -10,7 +10,8 @@ export class MapRoute {
   zoom: number
   granularity: number
   frameNumPerFly: number
-  curIndex: number
+  curCoordIndex: number
+  curGranularityIndex: number
   geojson: FeatureCollection
   curGeojson: FeatureCollection
 
@@ -24,8 +25,12 @@ export class MapRoute {
     const {xmlSource, zoom, granularity, frameNumPerFly} = params
     this.zoom = zoom
     this.granularity = granularity
+    if (this.granularity < 1) {
+      this.granularity = 1
+    }
     this.frameNumPerFly = frameNumPerFly
-    this.curIndex = 0
+    this.curCoordIndex = 0
+    this.curGranularityIndex = 0
 
     // Generate geojson
     const parsedGPX = new DOMParser().parseFromString(xmlSource)
@@ -67,20 +72,20 @@ export class MapRoute {
       // @ts-expect-error -- TODO
       this.geojson.features[0].geometry.coordinates
 
-    if (this.curIndex < coordinates.length) {
+    if (this.curCoordIndex < coordinates.length) {
       // Draw route
-      const curCoordinate = coordinates[this.curIndex]
+      const curCoordinate = coordinates[this.curCoordIndex]
       // @ts-expect-error -- TODO
       this.curGeojson.features[0].geometry.coordinates.push(curCoordinate)
       // @ts-expect-error -- TODO
       this.mapbox.map.getSource('running-routes').setData(this.curGeojson)
 
       // Fly camera
-      if (this.curIndex % this.frameNumPerFly === 0) {
+      if (this.curCoordIndex % this.frameNumPerFly === 0) {
         const nextCoordinate =
-          coordinates[this.curIndex + this.frameNumPerFly] ??
+          coordinates[this.curCoordIndex + this.frameNumPerFly] ??
           coordinates[coordinates.length - 1]
-        if (this.curIndex === 0) {
+        if (this.curCoordIndex === 0) {
           this.flyTo(curCoordinate[0], curCoordinate[1], 0)
         }
         this.flyTo(
@@ -90,7 +95,7 @@ export class MapRoute {
         )
       }
 
-      this.curIndex++
+      this.curCoordIndex++
     }
   }
 }
