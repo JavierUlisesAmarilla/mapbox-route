@@ -37,6 +37,17 @@ export class MapboxUtil {
       if (!this.map) {
         return
       }
+
+      // Add terrain
+      this.map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        tileSize: 512,
+        maxzoom: 14,
+      })
+      this.map.setTerrain({source: 'mapbox-dem', exaggeration: 1.5})
+
+      // Add route
       this.mapRoute = new MapRoute({
         map: this.map,
         xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
