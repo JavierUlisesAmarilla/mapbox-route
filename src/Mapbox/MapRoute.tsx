@@ -51,7 +51,7 @@ export class MapRoute {
       source: 'running-routes',
       paint: {
         'line-color': 'white',
-        'line-width': 3,
+        'line-width': 4,
       },
     })
   }
