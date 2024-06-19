@@ -9,8 +9,6 @@ export class MapRoute {
   geojson: FeatureCollection
   curGeojson: FeatureCollection
   curIndex: number
-  altitude: number
-  cameraOffset: number
 
   constructor(params: { map: MapboxGL.Map; xmlSource: string }) {
     const {map, xmlSource} = params
@@ -22,8 +20,6 @@ export class MapRoute {
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
     this.curIndex = 0
-    this.altitude = 10000
-    this.cameraOffset = this.altitude * 0.000005
 
     this.map.addSource('running-routes', {
       type: 'geojson',
@@ -39,9 +35,21 @@ export class MapRoute {
         'line-width': 3,
       },
     })
+
+    // @ts-expect-error -- TODO
+    const coordinates = this.geojson.features[0].geometry.coordinates
+    const firstCoordinate = coordinates[0]
+    const middleCoordinate = coordinates[(coordinates.length / 2).toFixed()]
+    const lastCoordinate = coordinates[coordinates.length - 1]
+    const duration = coordinates.length * 10
+    this.flyTo(firstCoordinate[0], firstCoordinate[1], 0)
+    this.flyTo(middleCoordinate[0], middleCoordinate[1], duration)
+    setTimeout(() => {
+      this.flyTo(lastCoordinate[0], lastCoordinate[1], duration)
+    }, duration)
   }
 
-  flyTo(lng: number, lat: number, duration = 10000) {
+  flyTo(lng: number, lat: number, duration: number) {
     this.map.flyTo({
       center: [lng, lat],
       zoom: 13,
@@ -62,19 +70,6 @@ export class MapRoute {
       this.curGeojson.features[0].geometry.coordinates.push(curCoordinate)
       // @ts-expect-error -- TODO
       this.map.getSource('running-routes').setData(this.curGeojson)
-      if (!(this.curIndex % 150)) {
-        this.flyTo(
-            curCoordinate[0],
-            curCoordinate[1],
-          this.curIndex ? 10000 : 0,
-        )
-      }
-
-      if (this.curIndex >= coordinates.length - 1) {
-        const lastCoordinate = coordinates[coordinates.length - 1]
-        this.flyTo(lastCoordinate[0], lastCoordinate[1])
-      }
-
       this.curIndex++
     }
   }
