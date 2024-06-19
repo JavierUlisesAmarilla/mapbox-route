@@ -1,9 +1,6 @@
-import MapboxGL from 'mapbox-gl'
 import {useEffect, useRef} from 'react'
 
 import {MapboxUtil} from './Util/MapboxUtil'
-
-MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
 export const App = () => {
   const containerRef = useRef<HTMLDivElement>(null)
