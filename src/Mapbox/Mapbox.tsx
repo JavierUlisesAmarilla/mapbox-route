@@ -1,14 +1,14 @@
 import MapboxGL from 'mapbox-gl'
 
 import {COL_DE_BRAUS_FROM_LUCERAM} from '../asset/gpx'
+import {Time} from '../Util/Time'
 import {MapRoute} from './MapRoute'
-import {Time} from './Time'
 
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
-let instance: MapboxUtil
+let instance: Mapbox
 
-export class MapboxUtil {
+export class Mapbox {
   container?: HTMLElement
   time?: Time
   map?: MapboxGL.Map

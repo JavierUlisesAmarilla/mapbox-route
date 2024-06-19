@@ -1,12 +1,12 @@
 import {useEffect, useRef} from 'react'
 
-import {MapboxUtil} from './Util/MapboxUtil'
+import {Mapbox} from './Mapbox/Mapbox'
 
 export const App = () => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    new MapboxUtil({container: containerRef.current!})
+    new Mapbox({container: containerRef.current!})
   }, [])
 
   return (
