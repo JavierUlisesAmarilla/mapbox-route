@@ -30,9 +30,6 @@ export class Mapbox {
     this.map = new MapboxGL.Map({
       container: this.container,
       style: 'mapbox://styles/mapbox/satellite-v9',
-      center: [7.361653, 43.8843],
-      zoom: 12,
-      pitch: 40,
     })
 
     this.map.on('load', () => {
