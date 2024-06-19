@@ -1,9 +1,7 @@
 import MapboxGL from 'mapbox-gl'
 
 import {COL_DE_BRAUS_FROM_LUCERAM} from '../asset/gpx'
-import {Keyboard} from './Keyboard'
 import {MapRoute} from './MapRoute'
-import {Size} from './Size'
 import {Time} from './Time'
 
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
@@ -12,14 +10,11 @@ let instance: MapboxUtil
 
 export class MapboxUtil {
   container?: HTMLElement
-  size?: Size
   time?: Time
-  keyboard?: Keyboard
+  map?: MapboxGL.Map
+  mapRoute?: MapRoute
 
-  constructor(params?: {
-    container?: HTMLElement;
-    onProgress?: { (progress: number): void };
-  }) {
+  constructor(params?: { container?: HTMLElement }) {
     if (instance) {
       return instance
     }
@@ -29,10 +24,8 @@ export class MapboxUtil {
       return instance
     }
     this.container = params.container
-    this.size = new Size()
     this.time = new Time()
-    this.keyboard = new Keyboard()
-    const map = new MapboxGL.Map({
+    this.map = new MapboxGL.Map({
       container: this.container,
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [7.361653, 43.8843],
@@ -40,23 +33,22 @@ export class MapboxUtil {
       pitch: 40,
     })
 
-    map.on('load', () => {
-      new MapRoute({map, xmlSource: COL_DE_BRAUS_FROM_LUCERAM})
+    this.map.on('load', () => {
+      if (!this.map) {
+        return
+      }
+      this.mapRoute = new MapRoute({
+        map: this.map,
+        xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
+      })
     })
 
-    this.size.on('resize', () => {
-      this.resize()
-    })
     this.time.on('tick', () => {
       this.update()
     })
   }
 
-  resize() {
-    //
-  }
-
   update() {
-    //
+    this.mapRoute?.update()
   }
 }
