@@ -2,11 +2,7 @@ import {gpx} from '@tmcw/togeojson'
 import deepClone from 'deep-clone'
 import {FeatureCollection} from 'geojson'
 import MapboxGL from 'mapbox-gl'
-import {Vector3} from 'three'
 import {DOMParser} from 'xmldom'
-
-const prevCameraPos = new Vector3()
-const nextCameraPos = new Vector3()
 
 export class MapRoute {
   map: MapboxGL.Map
@@ -45,34 +41,15 @@ export class MapRoute {
     })
   }
 
-  lookAt(lng: number, lat: number, alpha = 1) {
-    const camera = this.map.getFreeCameraOptions()
-    const nextCameraCoord = MapboxGL.MercatorCoordinate.fromLngLat(
-        {lng: lng + this.cameraOffset, lat: lat + this.cameraOffset},
-        this.altitude,
-    )
-    nextCameraPos.set(
-        nextCameraCoord.x,
-        nextCameraCoord.y,
-        nextCameraCoord.z || 0,
-    )
-    if (camera.position) {
-      prevCameraPos.set(
-          camera.position.x,
-          camera.position.y,
-          camera.position.z || 0,
-      )
-    } else {
-      prevCameraPos.copy(nextCameraPos)
-    }
-    const newCameraPos = prevCameraPos.lerp(nextCameraPos, alpha)
-    camera.position = new MapboxGL.MercatorCoordinate(
-        newCameraPos.x,
-        newCameraPos.y,
-        newCameraPos.z,
-    )
-    camera.lookAtPoint({lng, lat})
-    this.map.setFreeCameraOptions(camera)
+  flyTo(lng: number, lat: number, duration = 10000) {
+    this.map.flyTo({
+      center: [lng, lat],
+      zoom: 13,
+      bearing: 0,
+      pitch: 40,
+      duration,
+      essential: true,
+    })
   }
 
   update() {
@@ -85,7 +62,19 @@ export class MapRoute {
       this.curGeojson.features[0].geometry.coordinates.push(curCoordinate)
       // @ts-expect-error -- TODO
       this.map.getSource('running-routes').setData(this.curGeojson)
-      this.lookAt(curCoordinate[0], curCoordinate[1], this.curIndex ? 1 : 1)
+      if (!(this.curIndex % 150)) {
+        this.flyTo(
+            curCoordinate[0],
+            curCoordinate[1],
+          this.curIndex ? 10000 : 0,
+        )
+      }
+
+      if (this.curIndex >= coordinates.length - 1) {
+        const lastCoordinate = coordinates[coordinates.length - 1]
+        this.flyTo(lastCoordinate[0], lastCoordinate[1])
+      }
+
       this.curIndex++
     }
   }
