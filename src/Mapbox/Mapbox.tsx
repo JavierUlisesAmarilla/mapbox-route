@@ -3,6 +3,7 @@ import MapboxGL from 'mapbox-gl'
 import {COL_DE_BRAUS_FROM_LUCERAM} from '../asset/gpx'
 import {Time} from '../Util/Time'
 import {MapRoute} from './MapRoute'
+import {MapTerrain} from './MapTerrain'
 
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
@@ -13,6 +14,7 @@ export class Mapbox {
   time?: Time
   map?: MapboxGL.Map
   mapRoute?: MapRoute
+  mapTerrain?: MapTerrain
 
   constructor(params?: { container?: HTMLElement }) {
     if (instance) {
@@ -37,17 +39,7 @@ export class Mapbox {
       if (!this.map) {
         return
       }
-
-      // Add terrain
-      this.map.addSource('mapbox-dem', {
-        type: 'raster-dem',
-        url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-        tileSize: 512,
-        maxzoom: 14,
-      })
-      this.map.setTerrain({source: 'mapbox-dem', exaggeration: 1.5})
-
-      // Add route
+      this.mapTerrain = new MapTerrain({map: this.map})
       this.mapRoute = new MapRoute({
         map: this.map,
         xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
