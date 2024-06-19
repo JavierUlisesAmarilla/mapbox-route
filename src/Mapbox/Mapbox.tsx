@@ -33,12 +33,8 @@ export class Mapbox {
     })
 
     this.map.on('load', () => {
-      if (!this.map) {
-        return
-      }
-      this.mapTerrain = new MapTerrain({map: this.map})
+      this.mapTerrain = new MapTerrain()
       this.mapRoute = new MapRoute({
-        map: this.map,
         xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
       })
     })

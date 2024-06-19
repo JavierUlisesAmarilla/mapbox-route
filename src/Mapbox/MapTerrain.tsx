@@ -1,18 +1,18 @@
-import MapboxGL from 'mapbox-gl'
+import {Mapbox} from "./Mapbox"
 
 export class MapTerrain {
-  map: MapboxGL.Map
+  mapbox: Mapbox;
 
-  constructor(params: { map: MapboxGL.Map }) {
-    this.map = params.map
+  constructor() {
+    this.mapbox = new Mapbox();
 
-    this.map.addSource('mapbox-dem', {
-      type: 'raster-dem',
-      url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+    this.mapbox.map?.addSource("mapbox-dem", {
+      type: "raster-dem",
+      url: "mapbox://mapbox.mapbox-terrain-dem-v1",
       tileSize: 512,
       maxzoom: 14,
-    })
+    });
 
-    this.map.setTerrain({source: 'mapbox-dem', exaggeration: 1.5})
+    this.mapbox.map?.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
   }
 }
