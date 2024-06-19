@@ -13,8 +13,8 @@ export class Mapbox {
   container?: HTMLElement
   time?: Time
   map?: MapboxGL.Map
-  mapRoute?: MapRoute
   mapTerrain?: MapTerrain
+  mapRoute?: MapRoute
 
   constructor(params?: { container?: HTMLElement }) {
     if (instance) {
