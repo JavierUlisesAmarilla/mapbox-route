@@ -68,34 +68,50 @@ export class MapRoute {
   }
 
   update() {
-    const coordinates: number[][] =
+    const coords: number[][] =
       // @ts-expect-error -- TODO
       this.geojson.features[0].geometry.coordinates
 
-    if (this.curCoordIndex < coordinates.length) {
+    if (this.curCoordIndex < coords.length - 1) {
       // Draw route
-      const curCoordinate = coordinates[this.curCoordIndex]
+      const curCoord = coords[this.curCoordIndex]
+      const nextCoord = coords[this.curCoordIndex + 1]
+      const coordDiff = [
+        (nextCoord[0] - curCoord[0]) / this.granularity,
+        (nextCoord[1] - curCoord[1]) / this.granularity,
+        (nextCoord[2] - curCoord[2]) / this.granularity,
+      ]
+      const newCoord = [
+        curCoord[0] + coordDiff[0] * this.curGranularityIndex,
+        curCoord[1] + coordDiff[1] * this.curGranularityIndex,
+        curCoord[2] + coordDiff[2] * this.curGranularityIndex,
+      ]
       // @ts-expect-error -- TODO
-      this.curGeojson.features[0].geometry.coordinates.push(curCoordinate)
+      this.curGeojson.features[0].geometry.coordinates.push(newCoord)
       // @ts-expect-error -- TODO
       this.mapbox.map.getSource('running-routes').setData(this.curGeojson)
 
       // Fly camera
       if (this.curCoordIndex % this.frameNumPerFly === 0) {
-        const nextCoordinate =
-          coordinates[this.curCoordIndex + this.frameNumPerFly] ??
-          coordinates[coordinates.length - 1]
+        const flyCoord =
+          coords[this.curCoordIndex + this.frameNumPerFly] ??
+          coords[coords.length - 1]
         if (this.curCoordIndex === 0) {
-          this.flyTo(curCoordinate[0], curCoordinate[1], 0)
+          this.flyTo(curCoord[0], curCoord[1], 0)
         }
         this.flyTo(
-            nextCoordinate[0],
-            nextCoordinate[1],
-            this.frameNumPerFly * 30,
+            flyCoord[0],
+            flyCoord[1],
+            this.frameNumPerFly * this.granularity * 30,
         )
       }
 
-      this.curCoordIndex++
+      if (this.curGranularityIndex < this.granularity) {
+        this.curGranularityIndex++
+      } else {
+        this.curGranularityIndex = 0
+        this.curCoordIndex++
+      }
     }
   }
 }
