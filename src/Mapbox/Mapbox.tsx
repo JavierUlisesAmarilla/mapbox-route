@@ -38,7 +38,7 @@ export class Mapbox {
         xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
         zoom: 13,
         granularity: 2,
-        frameNumPerFly: 500,
+        frameNumPerFly: 100,
       })
     })
 
