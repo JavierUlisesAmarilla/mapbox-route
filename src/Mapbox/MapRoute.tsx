@@ -22,7 +22,7 @@ export class MapRoute {
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
     this.curIndex = 0
-    this.altitude = 20000
+    this.altitude = 10000
     this.cameraOffset = this.altitude * 0.000005
 
     this.map.addSource('running-routes', {
