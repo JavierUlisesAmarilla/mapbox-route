@@ -52,7 +52,7 @@ export class MapRoute {
   flyTo(lng: number, lat: number, duration: number) {
     this.map.flyTo({
       center: [lng, lat],
-      zoom: 13,
+      zoom: 14,
       bearing: 0,
       pitch: 40,
       duration,
