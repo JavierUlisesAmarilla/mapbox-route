@@ -36,7 +36,7 @@ export class Mapbox {
       this.mapTerrain = new MapTerrain()
       this.mapRoute = new MapRoute({
         xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
-        zoom: 13,
+        zoom: 15,
         granularity: 2,
         frameNumPerFly: 100,
       })
