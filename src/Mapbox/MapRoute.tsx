@@ -43,6 +43,7 @@ export class MapRoute {
     this.mapbox.map?.addSource('running-routes', {
       type: 'geojson',
       data: this.curGeojson,
+      tolerance: 0,
     })
 
     this.mapbox.map?.addLayer({
