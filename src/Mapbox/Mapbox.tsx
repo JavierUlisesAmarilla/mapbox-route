@@ -1,13 +1,15 @@
 import MapboxGL from 'mapbox-gl'
 
-import {COL_DE_BRAUS_FROM_LUCERAM} from '../asset/gpx'
+import {LUCERAM} from '../asset/gpx/luceram'
 import {Time} from '../Util/Time'
 import {MapRoute} from './MapRoute'
 import {MapTerrain} from './MapTerrain'
 
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
-
 let instance: Mapbox
+const GPX: { [key: string]: string } = {
+  luceram: LUCERAM,
+}
 
 export class Mapbox {
   container?: HTMLElement
@@ -35,7 +37,7 @@ export class Mapbox {
     this.map.on('load', () => {
       this.mapTerrain = new MapTerrain()
       this.mapRoute = new MapRoute({
-        xmlSource: COL_DE_BRAUS_FROM_LUCERAM,
+        xmlSource: GPX[import.meta.env.VITE_GPX],
         zoom: 15,
         granularity: 2,
         frameNumPerFly: 100,

@@ -1,4 +1,4 @@
-export const COL_DE_BRAUS_FROM_LUCERAM = `
+export const LUCERAM = `
 <gpx>
  <metadata>
   <time>2024-06-01T09:00:43Z</time>
