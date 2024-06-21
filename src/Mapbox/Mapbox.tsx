@@ -1,6 +1,11 @@
 import MapboxGL from 'mapbox-gl'
 
+import {BURGBERG} from '../asset/gpx/burgberg'
+import {COUILLOLE} from '../asset/gpx/couillole'
+import {FISCHEN} from '../asset/gpx/fischen'
+import {HUEZ} from '../asset/gpx/huez'
 import {LUCERAM} from '../asset/gpx/luceram'
+import {OBERJOCH} from '../asset/gpx/oberjoch'
 import {Time} from '../Util/Time'
 import {MapRoute} from './MapRoute'
 import {MapTerrain} from './MapTerrain'
@@ -8,7 +13,12 @@ import {MapTerrain} from './MapTerrain'
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 let instance: Mapbox
 const GPX: { [key: string]: string } = {
+  burgberg: BURGBERG,
+  couillole: COUILLOLE,
+  fischen: FISCHEN,
+  hues: HUEZ,
   luceram: LUCERAM,
+  oberjoch: OBERJOCH,
 }
 
 export class Mapbox {
