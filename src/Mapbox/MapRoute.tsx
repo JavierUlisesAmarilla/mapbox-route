@@ -65,6 +65,7 @@ export class MapRoute {
       pitch: 30,
       duration,
       essential: true,
+      curve: 1,
       easing: (t) => {
         return t
       },
