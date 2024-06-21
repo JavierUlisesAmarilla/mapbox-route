@@ -65,6 +65,9 @@ export class MapRoute {
       pitch: 30,
       duration,
       essential: true,
+      easing: (t) => {
+        return t
+      },
     })
   }
 
@@ -103,7 +106,7 @@ export class MapRoute {
         this.flyTo(
             flyCoord[0],
             flyCoord[1],
-            this.frameNumPerFly * this.granularity * 30,
+            this.frameNumPerFly * this.granularity * 40,
         )
       }
 
