@@ -15,6 +15,7 @@ export class MapRoute {
   line: LineString
   length: number
   curDistance: number
+  canDraw: boolean
 
   constructor(params: {
     xmlSource: string;
@@ -39,6 +40,7 @@ export class MapRoute {
     )
     this.length = turf.length(this.curGeojson)
     this.curDistance = 0
+    this.canDraw = false
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
 
@@ -57,6 +59,13 @@ export class MapRoute {
         'line-width': 4,
       },
     })
+
+    // Init
+    const flyCoord = turf.along(this.line, 0).geometry.coordinates
+    this.flyTo(flyCoord[0], flyCoord[1], 5000)
+    setTimeout(() => {
+      this.canDraw = true
+    }, 10000)
   }
 
   flyTo(lng: number, lat: number, duration: number) {
@@ -75,7 +84,7 @@ export class MapRoute {
   }
 
   update() {
-    if (this.curDistance <= this.length) {
+    if (this.canDraw && this.curDistance <= this.length) {
       const coord = turf.along(this.line, this.curDistance).geometry
           .coordinates
       // @ts-expect-error -- TODO
