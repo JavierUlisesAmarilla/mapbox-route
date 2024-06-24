@@ -17,6 +17,7 @@ export class MapRoute {
   curDistance: number
   canDraw: boolean
   pitch: number
+  bearing: number
 
   constructor(params: {
     xmlSource: string;
@@ -24,6 +25,7 @@ export class MapRoute {
     granularity: number;
     frameNumPerFly: number;
     pitch: number;
+    bearing: number;
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, granularity, frameNumPerFly} = params
@@ -44,6 +46,7 @@ export class MapRoute {
     this.curDistance = 0
     this.canDraw = false
     this.pitch = params.pitch
+    this.bearing = params.bearing
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
 
@@ -75,7 +78,7 @@ export class MapRoute {
     this.mapbox.map?.flyTo({
       center: [lng, lat],
       zoom: this.zoom,
-      bearing: 0,
+      bearing: this.bearing,
       pitch: this.pitch,
       duration,
       essential: true,
