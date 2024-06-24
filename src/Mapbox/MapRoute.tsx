@@ -16,12 +16,14 @@ export class MapRoute {
   length: number
   curDistance: number
   canDraw: boolean
+  pitch: number
 
   constructor(params: {
     xmlSource: string;
     zoom: number;
     granularity: number;
     frameNumPerFly: number;
+    pitch: number;
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, granularity, frameNumPerFly} = params
@@ -41,6 +43,7 @@ export class MapRoute {
     this.length = turf.length(this.curGeojson)
     this.curDistance = 0
     this.canDraw = false
+    this.pitch = params.pitch
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
 
@@ -73,7 +76,7 @@ export class MapRoute {
       center: [lng, lat],
       zoom: this.zoom,
       bearing: 0,
-      pitch: 30,
+      pitch: this.pitch,
       duration,
       essential: true,
       curve: 1,

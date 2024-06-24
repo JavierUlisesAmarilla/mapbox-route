@@ -12,13 +12,13 @@ import {MapTerrain} from './MapTerrain'
 
 MapboxGL.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 let instance: Mapbox
-const GPX: { [key: string]: { gpx: string; granularity: number } } = {
-  burgberg: {gpx: BURGBERG, granularity: 0.002},
-  couillole: {gpx: COUILLOLE, granularity: 0.002},
-  fischen: {gpx: FISCHEN, granularity: 0.002},
-  hues: {gpx: HUEZ, granularity: 0.002},
-  luceram: {gpx: LUCERAM, granularity: 0.002},
-  oberjoch: {gpx: OBERJOCH, granularity: 0.002},
+const GPX: { [key: string]: { gpx: string; granularity: number, pitch: number } } = {
+  burgberg: {gpx: BURGBERG, granularity: 0.002, pitch: 30},
+  couillole: {gpx: COUILLOLE, granularity: 0.002, pitch: 30},
+  fischen: {gpx: FISCHEN, granularity: 0.002, pitch: 30},
+  hues: {gpx: HUEZ, granularity: 0.002, pitch: 60},
+  luceram: {gpx: LUCERAM, granularity: 0.002, pitch: 30},
+  oberjoch: {gpx: OBERJOCH, granularity: 0.002, pitch: 30},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
@@ -52,6 +52,7 @@ export class Mapbox {
         zoom: 15,
         granularity: curGPX.granularity,
         frameNumPerFly: 100,
+        pitch: curGPX.pitch,
       })
     })
 
