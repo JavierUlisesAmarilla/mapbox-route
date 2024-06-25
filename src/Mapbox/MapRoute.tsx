@@ -10,28 +10,30 @@ export class MapRoute {
   zoom: number
   granularity: number
   frameNumPerFly: number
+  pitch: number
+  bearing: number
   curCoordIndex: number
   curGeojson: FeatureCollection
   line: LineString
   length: number
   curDistance: number
   canDraw: boolean
-  pitch: number
-  bearing: number
 
   constructor(params: {
     xmlSource: string;
-    zoom: number;
-    granularity: number;
-    frameNumPerFly: number;
-    pitch: number;
-    bearing: number;
+    zoom?: number;
+    granularity?: number;
+    frameNumPerFly?: number;
+    pitch?: number;
+    bearing?: number;
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, granularity, frameNumPerFly} = params
-    this.zoom = zoom
-    this.granularity = granularity
-    this.frameNumPerFly = frameNumPerFly
+    this.zoom = zoom ?? 15
+    this.granularity = granularity ?? 0.002
+    this.frameNumPerFly = frameNumPerFly ?? 100
+    this.pitch = params.pitch ?? 30
+    this.bearing = params.bearing ?? 0
     this.curCoordIndex = 0
 
     // Generate geojson
@@ -45,8 +47,6 @@ export class MapRoute {
     this.length = turf.length(this.curGeojson)
     this.curDistance = 0
     this.canDraw = false
-    this.pitch = params.pitch
-    this.bearing = params.bearing
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
 
