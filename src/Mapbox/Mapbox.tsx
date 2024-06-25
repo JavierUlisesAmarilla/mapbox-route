@@ -18,12 +18,13 @@ const GPX: {
     granularity?: number;
     pitch?: number;
     bearing?: number;
+    endCoordIndex?: number;
   };
 } = {
   burgberg: {gpx: BURGBERG},
   couillole: {gpx: COUILLOLE},
   fischen: {gpx: FISCHEN},
-  hues: {gpx: HUEZ, pitch: 60},
+  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267},
   luceram: {gpx: LUCERAM},
   oberjoch: {gpx: OBERJOCH},
 }
@@ -59,6 +60,7 @@ export class Mapbox {
         granularity: curGPX.granularity,
         pitch: curGPX.pitch,
         bearing: curGPX.bearing,
+        endCoordIndex: curGPX.endCoordIndex,
       })
     })
 

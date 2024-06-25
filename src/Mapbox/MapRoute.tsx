@@ -3,6 +3,7 @@ import * as turf from '@turf/turf'
 import {FeatureCollection, LineString} from 'geojson'
 import {DOMParser} from 'xmldom'
 
+import {IS_DEV_MODE} from '../constant'
 import {Mapbox} from './Mapbox'
 
 export class MapRoute {
@@ -26,6 +27,7 @@ export class MapRoute {
     frameNumPerFly?: number;
     pitch?: number;
     bearing?: number;
+    endCoordIndex?: number;
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, granularity, frameNumPerFly} = params
@@ -40,10 +42,12 @@ export class MapRoute {
     const parsedGPX = new DOMParser().parseFromString(xmlSource)
     this.curGeojson = gpx(parsedGPX)
     // @ts-expect-error -- TODO
-    this.line = turf.lineString(
-        // @ts-expect-error -- TODO
-        this.curGeojson.features[0].geometry.coordinates,
-    )
+    const coords: [] = this.curGeojson.features[0].geometry.coordinates
+    if (params.endCoordIndex) {
+      coords.splice(params.endCoordIndex)
+    }
+    // @ts-expect-error -- TODO
+    this.line = turf.lineString(coords)
     this.length = turf.length(this.curGeojson)
     this.curDistance = 0
     this.canDraw = false
@@ -67,11 +71,15 @@ export class MapRoute {
     })
 
     // Init
-    const flyCoord = turf.along(this.line, 0).geometry.coordinates
-    this.flyTo(flyCoord[0], flyCoord[1], 5000)
-    setTimeout(() => {
+    if (IS_DEV_MODE) {
       this.canDraw = true
-    }, 10000)
+    } else {
+      const flyCoord = turf.along(this.line, 0).geometry.coordinates
+      this.flyTo(flyCoord[0], flyCoord[1], 5000)
+      setTimeout(() => {
+        this.canDraw = true
+      }, 10000)
+    }
   }
 
   flyTo(lng: number, lat: number, duration: number) {
