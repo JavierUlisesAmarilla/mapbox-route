@@ -15,18 +15,18 @@ let instance: Mapbox
 const GPX: {
   [key: string]: {
     gpx: string;
-    granularity?: number;
+    duration?: number;
     pitch?: number;
     bearing?: number;
     endCoordIndex?: number;
   };
 } = {
-  burgberg: {gpx: BURGBERG},
-  couillole: {gpx: COUILLOLE},
-  fischen: {gpx: FISCHEN},
-  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267},
-  luceram: {gpx: LUCERAM},
-  oberjoch: {gpx: OBERJOCH},
+  burgberg: {gpx: BURGBERG, duration: 45000},
+  couillole: {gpx: COUILLOLE, duration: 45000},
+  fischen: {gpx: FISCHEN, duration: 45000},
+  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 45000},
+  luceram: {gpx: LUCERAM, duration: 45000},
+  oberjoch: {gpx: OBERJOCH, duration: 45000},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
@@ -57,7 +57,7 @@ export class Mapbox {
       this.mapTerrain = new MapTerrain()
       this.mapRoute = new MapRoute({
         xmlSource: curGPX.gpx,
-        granularity: curGPX.granularity,
+        duration: curGPX.duration,
         pitch: curGPX.pitch,
         bearing: curGPX.bearing,
         endCoordIndex: curGPX.endCoordIndex,
