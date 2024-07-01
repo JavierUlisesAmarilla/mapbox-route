@@ -8,8 +8,9 @@ import {Mapbox} from './Mapbox'
 
 export class MapRoute {
   mapbox: Mapbox
-  zoom: number
+  granularity: number
   frameNumPerFly: number
+  zoom: number
   pitch: number
   bearing: number
   curCoordIndex: number
@@ -18,7 +19,6 @@ export class MapRoute {
   length: number
   curDistance: number
   canDraw: boolean
-  granularity: number
 
   constructor(params: {
     xmlSource: string;
@@ -31,8 +31,8 @@ export class MapRoute {
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, duration, frameNumPerFly} = params
-    this.zoom = zoom ?? 15
     this.frameNumPerFly = frameNumPerFly ?? 100
+    this.zoom = zoom ?? 15
     this.pitch = params.pitch ?? 45
     this.bearing = params.bearing ?? 0
     this.curCoordIndex = 0
