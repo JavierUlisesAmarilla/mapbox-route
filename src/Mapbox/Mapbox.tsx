@@ -23,7 +23,7 @@ const GPX: {
   };
 } = {
   burgberg: {gpx: BURGBERG, duration: 60000, zoom: 11},
-  couillole: {gpx: COUILLOLE, duration: 60000, zoom: 11},
+  couillole: {gpx: COUILLOLE, duration: 60000, zoom: 12},
   fischen: {gpx: FISCHEN, duration: 60000, zoom: 11},
   hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 60000, zoom: 12},
   luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
