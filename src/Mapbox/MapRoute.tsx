@@ -33,7 +33,7 @@ export class MapRoute {
     const {xmlSource, zoom, duration, frameNumPerFly} = params
     this.zoom = zoom ?? 15
     this.frameNumPerFly = frameNumPerFly ?? 100
-    this.pitch = params.pitch ?? 30
+    this.pitch = params.pitch ?? 45
     this.bearing = params.bearing ?? 0
     this.curCoordIndex = 0
 
