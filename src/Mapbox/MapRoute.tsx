@@ -31,7 +31,7 @@ export class MapRoute {
   }) {
     this.mapbox = new Mapbox()
     const {xmlSource, zoom, duration, frameNumPerFly} = params
-    this.frameNumPerFly = frameNumPerFly ?? 100
+    this.frameNumPerFly = frameNumPerFly ?? 500
     this.zoom = zoom ?? 15
     this.pitch = params.pitch ?? 45
     this.bearing = params.bearing ?? 0
