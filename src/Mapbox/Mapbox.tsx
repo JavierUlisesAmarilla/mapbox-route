@@ -22,10 +22,10 @@ const GPX: {
     zoom?: number;
   };
 } = {
-  burgberg: {gpx: BURGBERG, duration: 60000, zoom: 11},
-  couillole: {gpx: COUILLOLE, duration: 60000, zoom: 12},
+  burgberg: {gpx: BURGBERG, duration: 60000, zoom: 12},
+  couillole: {gpx: COUILLOLE, duration: 60000, zoom: 12, pitch: 30},
   fischen: {gpx: FISCHEN, duration: 60000, zoom: 11},
-  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 60000, zoom: 12},
+  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 60000, zoom: 13},
   luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
   oberjoch: {gpx: OBERJOCH, duration: 60000, zoom: 11},
 }
