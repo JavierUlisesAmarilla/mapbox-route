@@ -21,12 +21,12 @@ const GPX: {
     endCoordIndex?: number;
   };
 } = {
-  burgberg: {gpx: BURGBERG, duration: 45000},
-  couillole: {gpx: COUILLOLE, duration: 45000},
-  fischen: {gpx: FISCHEN, duration: 45000},
-  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 45000},
-  luceram: {gpx: LUCERAM, duration: 45000},
-  oberjoch: {gpx: OBERJOCH, duration: 45000},
+  burgberg: {gpx: BURGBERG, duration: 100000},
+  couillole: {gpx: COUILLOLE, duration: 100000},
+  fischen: {gpx: FISCHEN, duration: 100000},
+  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 100000},
+  luceram: {gpx: LUCERAM, duration: 100000},
+  oberjoch: {gpx: OBERJOCH, duration: 100000},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
