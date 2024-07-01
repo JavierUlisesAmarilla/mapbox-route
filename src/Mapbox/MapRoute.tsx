@@ -50,7 +50,7 @@ export class MapRoute {
     this.length = turf.length(this.curGeojson)
     this.curDistance = 0
     this.canDraw = false
-    this.granularity = duration ? this.length / (duration / 16) : 0.002
+    this.granularity = duration ? this.length / (duration / 17) : 0.002
     // @ts-expect-error -- TODO
     this.curGeojson.features[0].geometry.coordinates = []
 
