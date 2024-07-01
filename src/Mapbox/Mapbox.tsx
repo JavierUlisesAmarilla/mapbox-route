@@ -19,14 +19,15 @@ const GPX: {
     pitch?: number;
     bearing?: number;
     endCoordIndex?: number;
+    zoom?: number;
   };
 } = {
-  burgberg: {gpx: BURGBERG, duration: 60000},
-  couillole: {gpx: COUILLOLE, duration: 60000},
-  fischen: {gpx: FISCHEN, duration: 60000},
-  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 60000},
-  luceram: {gpx: LUCERAM, duration: 60000},
-  oberjoch: {gpx: OBERJOCH, duration: 60000},
+  burgberg: {gpx: BURGBERG, duration: 60000, zoom: 11},
+  couillole: {gpx: COUILLOLE, duration: 60000, zoom: 11},
+  fischen: {gpx: FISCHEN, duration: 60000, zoom: 11},
+  hues: {gpx: HUEZ, pitch: 60, endCoordIndex: 1267, duration: 60000, zoom: 12},
+  luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
+  oberjoch: {gpx: OBERJOCH, duration: 60000, zoom: 11},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
@@ -61,6 +62,7 @@ export class Mapbox {
         pitch: curGPX.pitch,
         bearing: curGPX.bearing,
         endCoordIndex: curGPX.endCoordIndex,
+        zoom: curGPX.zoom,
       })
     })
 
