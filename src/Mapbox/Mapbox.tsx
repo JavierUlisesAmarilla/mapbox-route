@@ -29,7 +29,7 @@ const GPX: {
     gpx: HUEZ,
     endCoordIndex: 1267,
     duration: 60000,
-    zoom: 13,
+    zoom: 14,
     pitch: 60,
   },
   luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
