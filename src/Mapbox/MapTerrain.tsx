@@ -9,7 +9,7 @@ export class MapTerrain {
     this.mapbox.map?.addSource('mapbox-dem', {
       type: 'raster-dem',
       url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-      tileSize: 512,
+      tileSize: 128,
       maxzoom: 14,
     })
 
