@@ -23,9 +23,9 @@ const GPX: {
     frameNumPerFly?: number
   };
 } = {
-  burgberg: {gpx: BURGBERG, duration: 45000, zoom: 14, pitch: 60, frameNumPerFly: 300},
+  burgberg: {gpx: BURGBERG, duration: 45000, zoom: 14, pitch: 60, frameNumPerFly: 200},
   couillole: {gpx: COUILLOLE, duration: 60000, zoom: 12, pitch: 30},
-  fischen: {gpx: FISCHEN, duration: 40000, zoom: 14, pitch: 60},
+  fischen: {gpx: FISCHEN, duration: 40000, zoom: 14, pitch: 50, frameNumPerFly: 200},
   hues: {
     gpx: HUEZ,
     endCoordIndex: 1267,
