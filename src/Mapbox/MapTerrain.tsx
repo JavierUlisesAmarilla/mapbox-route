@@ -13,6 +13,6 @@ export class MapTerrain {
       maxzoom: 14,
     })
 
-    this.mapbox.map?.setTerrain({source: 'mapbox-dem', exaggeration: 1.5})
+    this.mapbox.map?.setTerrain({source: 'mapbox-dem', exaggeration: 0})
   }
 }
