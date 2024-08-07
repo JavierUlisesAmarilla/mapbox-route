@@ -33,7 +33,7 @@ const GPX: {
     pitch: 60,
   },
   luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
-  oberjoch: {gpx: OBERJOCH, duration: 45000, zoom: 14, pitch: 60},
+  oberjoch: {gpx: OBERJOCH, duration: 45000, zoom: 14},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
