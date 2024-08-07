@@ -115,7 +115,7 @@ export class MapRoute {
         if (this.curCoordIndex === 0) {
           this.flyTo(coord[0], coord[1], 0)
         }
-        this.flyTo(flyCoord[0], flyCoord[1], this.frameNumPerFly * 30)
+        this.flyTo(flyCoord[0], flyCoord[1], this.frameNumPerFly * 40)
       }
 
       this.curDistance += this.granularity

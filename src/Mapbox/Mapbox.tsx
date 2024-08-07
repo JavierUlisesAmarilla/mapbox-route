@@ -23,7 +23,7 @@ const GPX: {
     frameNumPerFly?: number
   };
 } = {
-  burgberg: {gpx: BURGBERG, duration: 45000, zoom: 14, pitch: 60},
+  burgberg: {gpx: BURGBERG, duration: 45000, zoom: 14, pitch: 60, frameNumPerFly: 300},
   couillole: {gpx: COUILLOLE, duration: 60000, zoom: 12, pitch: 30},
   fischen: {gpx: FISCHEN, duration: 40000, zoom: 14, pitch: 60},
   hues: {
@@ -34,7 +34,7 @@ const GPX: {
     pitch: 60,
   },
   luceram: {gpx: LUCERAM, duration: 60000, zoom: 13},
-  oberjoch: {gpx: OBERJOCH, duration: 45000, zoom: 14, frameNumPerFly: 500},
+  oberjoch: {gpx: OBERJOCH, duration: 45000, zoom: 14, frameNumPerFly: 200},
 }
 const curGPX = GPX[import.meta.env.VITE_GPX]
 
